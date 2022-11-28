@@ -103,11 +103,11 @@ new_client_dns () {
 	read -p "DNS server [1]: " dns
 	until [[ -z "$dns" || "$dns" =~ ^[1-6]$ ]]; do
 		echo "$dns: invalid selection."
-		read -p "DNS server [1]: " dns
+		read -p "DNS server [3]: " dns
 	done
 		# DNS
 	case "$dns" in
-		1|"")
+		1)
 			# Locate the proper resolv.conf
 			# Needed for systems running systemd-resolved
 			if grep '^nameserver' "/etc/resolv.conf" | grep -qv '127.0.0.53' ; then
@@ -121,7 +121,7 @@ new_client_dns () {
 		2)
 			dns="8.8.8.8, 8.8.4.4"
 		;;
-		3)
+		3|"")
 			dns="1.1.1.1, 1.0.0.1"
 		;;
 		4)
